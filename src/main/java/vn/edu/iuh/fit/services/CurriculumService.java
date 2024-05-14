@@ -13,9 +13,9 @@ public class CurriculumService {
     @Autowired
     private CurriculumRepository curriculumRepository;
 
-    public List<ResponesCurricular> findCurriculumById(Long studentId, Long majorId){
+    public List<ResponesCurricular> findCurriculumByStudentIdAndMajorId(Long studentId, Long majorId){
         List<ResponesCurricular> responesCurriculars = new ArrayList<>();
-        for (Object[] o : curriculumRepository.findCurriculumById(studentId, majorId)){
+        for (Object[] o : curriculumRepository.findCurriculumByStudentIdAndMajorId(studentId, majorId)){
             ResponesCurricular responesCurricular = new ResponesCurricular(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"", o[8]+"");
             responesCurriculars.add(responesCurricular);
         }

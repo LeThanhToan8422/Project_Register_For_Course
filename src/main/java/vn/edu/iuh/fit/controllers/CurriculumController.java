@@ -29,7 +29,7 @@ public class CurriculumController {
     }
 
     @GetMapping("/{student_id}/{major_id}")
-    public List<ResponesCurricular> findByID(@PathVariable("student_id") long studentId, @PathVariable("major_id") long majorId){
-        return curriculumService.findCurriculumById(studentId, majorId);
+    public List<ResponesCurricular> findCurriculumByStudentIdAndMajorId(@PathVariable("student_id") long studentId, @PathVariable("major_id") long majorId){
+        return curriculumService.findCurriculumByStudentIdAndMajorId(studentId, majorId);
     }
 }

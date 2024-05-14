@@ -20,6 +20,7 @@ public class Schedule {
     @Column(name = "day_of_week")
     private DayOfWeek dayOfWeek;
     private String shift;
+    private String buildings;
     @OneToOne
     @JoinColumn(name = "course_section_id")
     private CourseSection courseSectionId;

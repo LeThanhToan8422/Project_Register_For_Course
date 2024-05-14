@@ -22,6 +22,9 @@ public class CourseSection {
     private String sectionCode;
     @Column(name = "student_enrollment_number")
     private Long studentEnrollmentNumber;
+    private boolean status;
+    @Column(name = "class_name")
+    private String className;
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course courseId;

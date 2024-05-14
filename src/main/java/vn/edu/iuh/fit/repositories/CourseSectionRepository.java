@@ -1,0 +1,30 @@
+package vn.edu.iuh.fit.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import vn.edu.iuh.fit.models.Course;
+import vn.edu.iuh.fit.models.CourseSection;
+
+import java.util.List;
+
+@Repository
+public interface CourseSectionRepository extends JpaRepository<CourseSection, Long> {
+    @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, 80 AS maxQuantity, coss.student_enrollment_number, coss.status \n" +
+            "FROM course_sections AS coss INNER JOIN courses AS co ON co.id = coss.course_id \n" +
+            "WHERE co.id = :majorId AND coss.`status` = 0", nativeQuery = true)
+    List<Object[]> findCourseSectionsByMajorId(Long majorId);
+
+    @Query(value = "SELECT coss.id, \n" +
+            "       sch.day_of_week, \n" +
+            "       sch.shift, \n" +
+            "       sch.buildings, \n" +
+            "       GROUP_CONCAT(CONCAT(u.full_name, ' ( ',IF(lcs.clss = 0, 'LT', 'TH'), ' ) ')) AS lectures\n" +
+            "FROM schedules AS sch \n" +
+            "INNER JOIN course_sections AS coss ON sch.course_section_id = coss.id\n" +
+            "INNER JOIN lecture_course_sections AS lcs ON coss.id = lcs.course_section_id\n" +
+            "INNER JOIN users AS u ON u.id = lcs.lecture_id\n" +
+            "WHERE coss.id = :courseSectionId\n" +
+            "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings;\n", nativeQuery = true)
+    List<Object[]> findDetailCourseSectionsByCourseSectionId(Long courseSectionId);
+}

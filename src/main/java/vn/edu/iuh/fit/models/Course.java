@@ -24,10 +24,6 @@ public class Course {
     @Column(name = "course_code")
     private String courseCode;
     private long credits;
-    @Column(name = "start_time")
-    private LocalDate startTime;
-    @Column(name = "end_time")
-    private LocalDate endTime;
     @ManyToOne
     @JoinColumn(name = "prerequisite_id")
     private Course prerequisiteId;
