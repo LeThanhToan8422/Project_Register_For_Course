@@ -25,6 +25,7 @@ public class CourseSection {
     private boolean status;
     @Column(name = "class_name")
     private String className;
+    private String semester;
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course courseId;
@@ -32,4 +33,6 @@ public class CourseSection {
     private List<Lecture_Course_Section> lectureCourseSections;
     @OneToMany(mappedBy = "courseSectionId")
     private List<Grades> grades;
+    @OneToMany(mappedBy = "courseSectionId")
+    private List<Schedule> schedules;
 }

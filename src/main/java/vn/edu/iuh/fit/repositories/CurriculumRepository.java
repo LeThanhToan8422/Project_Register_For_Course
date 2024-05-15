@@ -18,7 +18,7 @@ public interface CurriculumRepository extends JpaRepository<Curriculum, Long> {
             "    cucr.number_of_theory_classes, \n" +
             "    cucr.number_of_practice_classes,\n" +
             "    cu.semester,\n" +
-            "    IF(grd.student_id = :studentId AND grd.grades IS NOT NULL, grd.grades, NULL) AS grades\n" +
+            "    IF(grd.student_id = :studentId AND grd.evaluate IS NOT NULL, grd.evaluate, NULL) AS evaluate\n" +
             "FROM \n" +
             "    curriculums AS cu \n" +
             "INNER JOIN curriculum_courses AS cucr ON cu.id = cucr.curriculum_id\n" +

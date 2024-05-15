@@ -6,6 +6,7 @@ import vn.edu.iuh.fit.repositories.CourseRepository;
 import vn.edu.iuh.fit.repositories.CourseSectionRepository;
 import vn.edu.iuh.fit.responses.ResponesCourse;
 import vn.edu.iuh.fit.responses.ResponesCourseSection;
+import vn.edu.iuh.fit.responses.ResponesCourseSectionsRegistered;
 import vn.edu.iuh.fit.responses.ResponesDetailCourseSection;
 
 import java.util.ArrayList;
@@ -28,9 +29,18 @@ public class CourseSectionService {
     public List<ResponesDetailCourseSection> findDetailCourseSectionsByCourseSectionId(Long courseSectionId){
         List<ResponesDetailCourseSection> responesDetailCourseSections = new ArrayList<>();
         for (Object[] o : courseSectionRepository.findDetailCourseSectionsByCourseSectionId(courseSectionId)){
-            ResponesDetailCourseSection responesDetailCourseSection = new ResponesDetailCourseSection(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"");
+            ResponesDetailCourseSection responesDetailCourseSection = new ResponesDetailCourseSection(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"");
             responesDetailCourseSections.add(responesDetailCourseSection);
         }
         return responesDetailCourseSections;
+    }
+
+    public List<ResponesCourseSectionsRegistered> findCourseSectionsRegisteredBySemester(String semester){
+        List<ResponesCourseSectionsRegistered> responesCourseSectionsRegistereds = new ArrayList<>();
+        for (Object[] o : courseSectionRepository.findCourseSectionsRegisteredBySemester(semester)){
+            ResponesCourseSectionsRegistered responesCourseSectionsRegistered = new ResponesCourseSectionsRegistered(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"");
+            responesCourseSectionsRegistereds.add(responesCourseSectionsRegistered);
+        }
+        return responesCourseSectionsRegistereds;
     }
 }

@@ -1,10 +1,7 @@
 package vn.edu.iuh.fit.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import vn.edu.iuh.fit.IdClass.GradeId;
 
 @Entity
@@ -26,6 +23,17 @@ public class Grades {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course courseId;
-    private double grades;
+    @Column(name = "theory_grades")
+    private double theoryGrades;
+    @Column(name = "practice_grades")
+    private double practiceGrades;
+    @Column(name = "final_grades")
+    private double finalGrades;
     private String evaluate;
+    @ManyToOne
+    @JoinColumn(name = "lecture_theory_id")
+    private User lectureTheoryId;
+    @ManyToOne
+    @JoinColumn(name = "lecture_practice_id")
+    private User lecturePracticeId;
 }

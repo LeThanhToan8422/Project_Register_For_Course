@@ -46,4 +46,13 @@ public class User {
     @OneToMany(mappedBy = "studentId")
     @JsonIgnore
     private List<Grades> grades;
+    @OneToMany(mappedBy = "lectureTheoryId")
+    @JsonIgnore
+    private List<Grades> gradeLectureTheories;
+    @OneToMany(mappedBy = "lecturePracticeId")
+    @JsonIgnore
+    private List<Grades> gradeLecturePractices;
+    @OneToMany(mappedBy = "lectureId")
+    @JsonIgnore
+    private List<Schedule> schedules;
 }

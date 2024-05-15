@@ -8,6 +8,7 @@ import vn.edu.iuh.fit.repositories.CourseRepository;
 import vn.edu.iuh.fit.repositories.CourseSectionRepository;
 import vn.edu.iuh.fit.responses.ResponesCourse;
 import vn.edu.iuh.fit.responses.ResponesCourseSection;
+import vn.edu.iuh.fit.responses.ResponesCourseSectionsRegistered;
 import vn.edu.iuh.fit.responses.ResponesDetailCourseSection;
 import vn.edu.iuh.fit.services.CourseSectionService;
 import vn.edu.iuh.fit.services.CourseService;
@@ -36,5 +37,10 @@ public class CourseSectionController {
     @GetMapping("/detail-course-section/{course_section_id}")
     public List<ResponesDetailCourseSection> findDetailCourseSectionsByCourseSectionId(@PathVariable("course_section_id") long courseSectionId){
         return courseSectionService.findDetailCourseSectionsByCourseSectionId(courseSectionId);
+    }
+
+    @GetMapping("/registered-course-section/{semester}")
+    public List<ResponesCourseSectionsRegistered> findCourseSectionsRegisteredBySemester(@PathVariable("semester") String semester){
+        return courseSectionService.findCourseSectionsRegisteredBySemester(semester);
     }
 }

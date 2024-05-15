@@ -19,12 +19,21 @@ public interface CourseSectionRepository extends JpaRepository<CourseSection, Lo
             "       sch.day_of_week, \n" +
             "       sch.shift, \n" +
             "       sch.buildings, \n" +
-            "       GROUP_CONCAT(CONCAT(u.full_name, ' ( ',IF(lcs.clss = 0, 'LT', 'TH'), ' ) ')) AS lectures\n" +
+            "       u.full_name AS lectures,\n" +
+            "       sch.`type`\n" +
             "FROM schedules AS sch \n" +
             "INNER JOIN course_sections AS coss ON sch.course_section_id = coss.id\n" +
             "INNER JOIN lecture_course_sections AS lcs ON coss.id = lcs.course_section_id\n" +
-            "INNER JOIN users AS u ON u.id = lcs.lecture_id\n" +
+            "INNER JOIN users AS u ON u.id = sch.lecture_id\n" +
             "WHERE coss.id = :courseSectionId\n" +
-            "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings;\n", nativeQuery = true)
+            "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings", nativeQuery = true)
     List<Object[]> findDetailCourseSectionsByCourseSectionId(Long courseSectionId);
+
+    @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, co.credits, lecture_theory.full_name AS lecture_theory, lecture_practice.full_name AS lecture_practice, coss.`status` FROM course_sections AS coss \n" +
+            "INNER JOIN courses AS co ON co.id = coss.course_id\n" +
+            "INNER JOIN grades AS grd ON coss.id = grd.course_section_id\n" +
+            "INNER JOIN users AS lecture_theory ON lecture_theory.id = grd.lecture_theory_id\n" +
+            "INNER JOIN users AS lecture_practice ON lecture_practice.id = grd.lecture_practice_id\n" +
+            "WHERE coss.semester = :semester", nativeQuery = true)
+    List<Object[]> findCourseSectionsRegisteredBySemester(String semester);
 }

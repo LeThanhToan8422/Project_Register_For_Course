@@ -13,4 +13,5 @@ public class ResponesDetailCourseSection {
     private String shift;
     private String buildings;
     private String lectures;
+    private String type;
 }

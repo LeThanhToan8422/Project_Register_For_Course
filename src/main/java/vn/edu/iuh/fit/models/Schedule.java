@@ -21,7 +21,11 @@ public class Schedule {
     private DayOfWeek dayOfWeek;
     private String shift;
     private String buildings;
-    @OneToOne
+    private String type;
+    @ManyToOne
     @JoinColumn(name = "course_section_id")
     private CourseSection courseSectionId;
+    @ManyToOne
+    @JoinColumn(name = "lecture_id")
+    private User lectureId;
 }

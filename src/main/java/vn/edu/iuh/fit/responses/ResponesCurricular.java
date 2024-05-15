@@ -16,5 +16,5 @@ public class ResponesCurricular {
     private String number_of_theory_classes;
     private String number_of_practice_classes;
     private String semester;
-    private String grades;
+    private String evaluate;
 }
