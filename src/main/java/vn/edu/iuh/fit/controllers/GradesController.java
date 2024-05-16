@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.models.Course;
 import vn.edu.iuh.fit.models.Grades;
 import vn.edu.iuh.fit.models.User;
 import vn.edu.iuh.fit.repositories.*;
@@ -33,15 +34,22 @@ public class GradesController {
             @RequestParam("lecturePracticeId") Long lecturePracticeId,
             @RequestParam("semester") String semester
     ){
-        Grades grades = new Grades();
-        grades.setStudentId(userRepository.findById(studentId).get());
-        grades.setCourseSectionId(courseSectionRepository.findById(courseSectionId).get());
-        grades.setCourseId(courseRepository.findById(courseId).get());
-        grades.setLectureTheoryId(userRepository.findById(lectureTheoryId).get());
-        grades.setLecturePracticeId(userRepository.findById(lecturePracticeId).get());
-        grades.setSemester(semester);
-        scheduleRepository.updateStudentEnrollmentNumberByTypeTheory(courseSectionId, lectureTheoryId);
-        scheduleRepository.updateStudentEnrollmentNumberByTypePractice(courseSectionId, lecturePracticeId);
-        return gradesRepository.save(grades);
+        Course course = courseRepository.findById(courseId).get();
+        if(Long.parseLong(gradesRepository.findCreditsOfSemesterByStudentId(studentId, semester).get(0)[0]+"") + course.getCredits() > 6){
+            return null;
+        }
+        else{
+            Grades grades = new Grades();
+            grades.setStudentId(userRepository.findById(studentId).get());
+            grades.setCourseSectionId(courseSectionRepository.findById(courseSectionId).get());
+            grades.setCourseId(course);
+            grades.setLectureTheoryId(userRepository.findById(lectureTheoryId).get());
+            grades.setLecturePracticeId(userRepository.findById(lecturePracticeId).get());
+            grades.setSemester(semester);
+            scheduleRepository.updateStudentEnrollmentNumberByTypeTheory(courseSectionId, lectureTheoryId);
+            scheduleRepository.updateStudentEnrollmentNumberByTypePractice(courseSectionId, lecturePracticeId);
+            return gradesRepository.save(grades);
+        }
+
     }
 }

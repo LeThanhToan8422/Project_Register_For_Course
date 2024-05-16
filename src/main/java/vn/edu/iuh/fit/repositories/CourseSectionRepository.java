@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface CourseSectionRepository extends JpaRepository<CourseSection, Long> {
-    @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, 80 AS maxQuantity, coss.student_enrollment_number, coss.status \n" +
+    @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, coss.status \n" +
             "FROM course_sections AS coss INNER JOIN courses AS co ON co.id = coss.course_id \n" +
             "WHERE co.id = :majorId AND coss.`status` = 0", nativeQuery = true)
     List<Object[]> findCourseSectionsByMajorId(Long majorId);

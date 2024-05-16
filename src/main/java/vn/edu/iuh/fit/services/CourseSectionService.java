@@ -20,7 +20,7 @@ public class CourseSectionService {
     public List<ResponesCourseSection> findCourseSectionsByMajorId(Long majorId){
         List<ResponesCourseSection> responesCourseSections = new ArrayList<>();
         for (Object[] o : courseSectionRepository.findCourseSectionsByMajorId(majorId)){
-            ResponesCourseSection responesCourseSection = new ResponesCourseSection(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"");
+            ResponesCourseSection responesCourseSection = new ResponesCourseSection(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"");
             responesCourseSections.add(responesCourseSection);
         }
         return responesCourseSections;

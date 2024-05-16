@@ -12,7 +12,5 @@ public class ResponesCourseSection {
     private String sectionCode;
     private String name;
     private String className;
-    private String maxQuantity;
-    private String registeredQuantity;
     private String status;
 }

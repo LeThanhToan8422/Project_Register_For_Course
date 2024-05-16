@@ -20,8 +20,6 @@ public class CourseSection {
     private Long id;
     @Column(name = "section_code")
     private String sectionCode;
-    @Column(name = "student_enrollment_number")
-    private Long studentEnrollmentNumber;
     private boolean status;
     @Column(name = "class_name")
     private String className;
