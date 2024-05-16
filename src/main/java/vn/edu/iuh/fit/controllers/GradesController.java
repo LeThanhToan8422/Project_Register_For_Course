@@ -40,11 +40,15 @@ public class GradesController {
                 return "credits cannot be greater than 30";
             }
         }
-        else if(course.getPrerequisiteId() != null){
+        if(course.getPrerequisiteId() != null){
             if(gradesRepository.findPrerequisiteByStudentIdAndCourseId(studentId, course.getPrerequisiteId().getId()) == null){
                 return "You have not completed the prerequisite course";
             }
         }
+        if(Long.parseLong(scheduleRepository.findScheduleByStudentIdSemesterLectureTheoryAndLecturePractice(courseSectionId, lectureTheoryId, lecturePracticeId, semester, studentId).get(0)[0]+"") > 0){
+            return "Class schedules clash";
+        }
+
         Grades grades = new Grades();
         grades.setStudentId(userRepository.findById(studentId).get());
         grades.setCourseSectionId(courseSectionRepository.findById(courseSectionId).get());
