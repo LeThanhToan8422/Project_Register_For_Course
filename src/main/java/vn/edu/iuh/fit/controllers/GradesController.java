@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.models.Grades;
 import vn.edu.iuh.fit.models.User;
-import vn.edu.iuh.fit.repositories.CourseRepository;
-import vn.edu.iuh.fit.repositories.CourseSectionRepository;
-import vn.edu.iuh.fit.repositories.GradesRepository;
-import vn.edu.iuh.fit.repositories.UserRepository;
+import vn.edu.iuh.fit.repositories.*;
 import vn.edu.iuh.fit.services.GradesService;
 
 @RestController
@@ -24,6 +21,8 @@ public class GradesController {
     private CourseSectionRepository courseSectionRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private ScheduleRepository scheduleRepository;
 
     @PostMapping
     public Grades create(
@@ -39,6 +38,8 @@ public class GradesController {
         grades.setCourseId(courseRepository.findById(courseId).get());
         grades.setLectureTheoryId(userRepository.findById(lectureTheoryId).get());
         grades.setLecturePracticeId(userRepository.findById(lecturePracticeId).get());
+        scheduleRepository.updateStudentEnrollmentNumberByTypeTheory(courseSectionId, lectureTheoryId);
+        scheduleRepository.updateStudentEnrollmentNumberByTypePractice(courseSectionId, lecturePracticeId);
         return gradesRepository.save(grades);
     }
 }

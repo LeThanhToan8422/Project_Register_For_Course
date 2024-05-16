@@ -15,18 +15,20 @@ public interface CourseSectionRepository extends JpaRepository<CourseSection, Lo
             "WHERE co.id = :majorId AND coss.`status` = 0", nativeQuery = true)
     List<Object[]> findCourseSectionsByMajorId(Long majorId);
 
-    @Query(value = "SELECT coss.id, \n" +
+    @Query(value = "SELECT coss.id,\n" +
             "       sch.day_of_week, \n" +
             "       sch.shift, \n" +
             "       sch.buildings, \n" +
+            "       u.id AS lecture_id,\n" +
             "       u.full_name AS lectures,\n" +
-            "       sch.`type`\n" +
+            "       sch.`type`,\n" +
+            "       sch.student_enrollment_number\n" +
             "FROM schedules AS sch \n" +
             "INNER JOIN course_sections AS coss ON sch.course_section_id = coss.id\n" +
             "INNER JOIN lecture_course_sections AS lcs ON coss.id = lcs.course_section_id\n" +
             "INNER JOIN users AS u ON u.id = sch.lecture_id\n" +
             "WHERE coss.id = :courseSectionId\n" +
-            "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings", nativeQuery = true)
+            "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings\n", nativeQuery = true)
     List<Object[]> findDetailCourseSectionsByCourseSectionId(Long courseSectionId);
 
     @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, co.credits, lecture_theory.full_name AS lecture_theory, lecture_practice.full_name AS lecture_practice, coss.`status` FROM course_sections AS coss \n" +

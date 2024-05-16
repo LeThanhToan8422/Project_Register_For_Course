@@ -22,6 +22,7 @@ public class Schedule {
     private String shift;
     private String buildings;
     private String type;
+    private Long student_enrollment_number;
     @ManyToOne
     @JoinColumn(name = "course_section_id")
     private CourseSection courseSectionId;
