@@ -19,4 +19,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             "SET sch.student_enrollment_number = sch.student_enrollment_number + 1\n" +
             "WHERE sch.course_section_id = :courseSectionId AND sch.lecture_id = :lectureId AND sch.`type` = 'TH'", nativeQuery = true)
     void updateStudentEnrollmentNumberByTypePractice(Long courseSectionId, Long lectureId);
+
+    @Query(value = "SELECT sch.student_enrollment_number FROM schedules AS sch\n" +
+            "WHERE sch.course_section_id = :courseSectionId AND sch.`type` = 'LT'", nativeQuery = true)
+    List<Object[]> findStudentEnrollmentNumbersByCourseSectionId(Long courseSectionId);
 }

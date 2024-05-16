@@ -6,6 +6,7 @@ import vn.edu.iuh.fit.models.Course;
 import vn.edu.iuh.fit.models.CourseSection;
 import vn.edu.iuh.fit.repositories.CourseRepository;
 import vn.edu.iuh.fit.repositories.CourseSectionRepository;
+import vn.edu.iuh.fit.repositories.ScheduleRepository;
 import vn.edu.iuh.fit.responses.ResponesCourse;
 import vn.edu.iuh.fit.responses.ResponesCourseSection;
 import vn.edu.iuh.fit.responses.ResponesCourseSectionsRegistered;
@@ -23,6 +24,8 @@ public class CourseSectionController {
     private CourseSectionService courseSectionService;
     @Autowired
     private CourseSectionRepository courseSectionRepository;
+    @Autowired
+    private ScheduleRepository scheduleRepository;
 
     @GetMapping
     public List<CourseSection> findAll(){
@@ -42,5 +45,10 @@ public class CourseSectionController {
     @GetMapping("/registered-course-section/{semester}")
     public List<ResponesCourseSectionsRegistered> findCourseSectionsRegisteredBySemester(@PathVariable("semester") String semester){
         return courseSectionService.findCourseSectionsRegisteredBySemester(semester);
+    }
+
+    @GetMapping("/student-enrollment-numbers/{course_section_id}")
+    public Long findStudentEnrollmentNumbersByCourseSectionId(@PathVariable("course_section_id") long courseSectionId){
+        return Long.parseLong(scheduleRepository.findStudentEnrollmentNumbersByCourseSectionId(courseSectionId).get(0)[0]+"");
     }
 }
