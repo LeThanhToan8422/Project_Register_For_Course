@@ -36,6 +36,6 @@ public interface CourseSectionRepository extends JpaRepository<CourseSection, Lo
             "INNER JOIN grades AS grd ON coss.id = grd.course_section_id\n" +
             "INNER JOIN users AS lecture_theory ON lecture_theory.id = grd.lecture_theory_id\n" +
             "INNER JOIN users AS lecture_practice ON lecture_practice.id = grd.lecture_practice_id\n" +
-            "WHERE coss.semester = :semester", nativeQuery = true)
-    List<Object[]> findCourseSectionsRegisteredBySemester(String semester);
+            "WHERE grd.student_id = :studentId AND coss.semester = :semester", nativeQuery = true)
+    List<Object[]> findCourseSectionsRegisteredByStudentIdAndSemester(Long studentId, String semester);
 }

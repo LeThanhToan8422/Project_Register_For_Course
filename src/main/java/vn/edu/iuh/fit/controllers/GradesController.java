@@ -26,7 +26,7 @@ public class GradesController {
     private ScheduleRepository scheduleRepository;
 
     @PostMapping
-    public Grades create(
+    public String create(
             @RequestParam("studentId") Long studentId,
             @RequestParam("courseSectionId") Long courseSectionId,
             @RequestParam("courseId") Long courseId,
@@ -35,21 +35,26 @@ public class GradesController {
             @RequestParam("semester") String semester
     ){
         Course course = courseRepository.findById(courseId).get();
-        if(Long.parseLong(gradesRepository.findCreditsOfSemesterByStudentId(studentId, semester).get(0)[0]+"") + course.getCredits() > 6){
-            return null;
+        if(gradesRepository.findCreditsOfSemesterByStudentId(studentId, semester).get(0) != null){
+            if(Long.parseLong(gradesRepository.findCreditsOfSemesterByStudentId(studentId, semester).get(0)[0]+"") + course.getCredits() > 30){
+                return "credits cannot be greater than 30";
+            }
         }
-        else{
-            Grades grades = new Grades();
-            grades.setStudentId(userRepository.findById(studentId).get());
-            grades.setCourseSectionId(courseSectionRepository.findById(courseSectionId).get());
-            grades.setCourseId(course);
-            grades.setLectureTheoryId(userRepository.findById(lectureTheoryId).get());
-            grades.setLecturePracticeId(userRepository.findById(lecturePracticeId).get());
-            grades.setSemester(semester);
-            scheduleRepository.updateStudentEnrollmentNumberByTypeTheory(courseSectionId, lectureTheoryId);
-            scheduleRepository.updateStudentEnrollmentNumberByTypePractice(courseSectionId, lecturePracticeId);
-            return gradesRepository.save(grades);
+        else if(course.getPrerequisiteId() != null){
+            if(gradesRepository.findPrerequisiteByStudentIdAndCourseId(studentId, course.getPrerequisiteId().getId()) == null){
+                return "You have not completed the prerequisite course";
+            }
         }
-
+        Grades grades = new Grades();
+        grades.setStudentId(userRepository.findById(studentId).get());
+        grades.setCourseSectionId(courseSectionRepository.findById(courseSectionId).get());
+        grades.setCourseId(course);
+        grades.setLectureTheoryId(userRepository.findById(lectureTheoryId).get());
+        grades.setLecturePracticeId(userRepository.findById(lecturePracticeId).get());
+        grades.setSemester(semester);
+        scheduleRepository.updateStudentEnrollmentNumberByTypeTheory(courseSectionId, lectureTheoryId);
+        scheduleRepository.updateStudentEnrollmentNumberByTypePractice(courseSectionId, lecturePracticeId);
+        gradesRepository.save(grades);
+        return "Success";
     }
 }

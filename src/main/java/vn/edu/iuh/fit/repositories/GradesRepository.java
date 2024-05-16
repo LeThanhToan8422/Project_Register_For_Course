@@ -16,4 +16,6 @@ public interface GradesRepository extends JpaRepository<Grades, GradeId> {
             "INNER JOIN courses AS co ON co.id = grd.course_id\n" +
             "WHERE grd.student_id = :studentId AND grd.semester = :semester", nativeQuery = true)
     List<Object[]> findCreditsOfSemesterByStudentId(Long studentId, String semester);
+    @Query(value = "select g from Grades g where g.studentId.id = :studentId and g.courseId.id = :courseId")
+    Grades findPrerequisiteByStudentIdAndCourseId(Long studentId, Long courseId);
 }

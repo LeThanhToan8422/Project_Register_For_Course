@@ -42,9 +42,9 @@ public class CourseSectionController {
         return courseSectionService.findDetailCourseSectionsByCourseSectionId(courseSectionId);
     }
 
-    @GetMapping("/registered-course-section/{semester}")
-    public List<ResponesCourseSectionsRegistered> findCourseSectionsRegisteredBySemester(@PathVariable("semester") String semester){
-        return courseSectionService.findCourseSectionsRegisteredBySemester(semester);
+    @GetMapping("/registered-course-section/{student_id}/{semester}")
+    public List<ResponesCourseSectionsRegistered> findCourseSectionsRegisteredByStudentIdAndSemester(@PathVariable("student_id") long studentId, @PathVariable("semester") String semester){
+        return courseSectionService.findCourseSectionsRegisteredByStudentIdAndSemester(studentId, semester);
     }
 
     @GetMapping("/student-enrollment-numbers/{course_section_id}")
