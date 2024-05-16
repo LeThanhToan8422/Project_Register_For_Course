@@ -30,7 +30,8 @@ public class GradesController {
             @RequestParam("courseSectionId") Long courseSectionId,
             @RequestParam("courseId") Long courseId,
             @RequestParam("lectureTheoryId") Long lectureTheoryId,
-            @RequestParam("lecturePracticeId") Long lecturePracticeId
+            @RequestParam("lecturePracticeId") Long lecturePracticeId,
+            @RequestParam("semester") String semester
     ){
         Grades grades = new Grades();
         grades.setStudentId(userRepository.findById(studentId).get());
@@ -38,6 +39,7 @@ public class GradesController {
         grades.setCourseId(courseRepository.findById(courseId).get());
         grades.setLectureTheoryId(userRepository.findById(lectureTheoryId).get());
         grades.setLecturePracticeId(userRepository.findById(lecturePracticeId).get());
+        grades.setSemester(semester);
         scheduleRepository.updateStudentEnrollmentNumberByTypeTheory(courseSectionId, lectureTheoryId);
         scheduleRepository.updateStudentEnrollmentNumberByTypePractice(courseSectionId, lecturePracticeId);
         return gradesRepository.save(grades);

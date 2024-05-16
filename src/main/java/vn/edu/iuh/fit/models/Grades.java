@@ -30,6 +30,7 @@ public class Grades {
     @Column(name = "final_grades")
     private double finalGrades;
     private String evaluate;
+    private String semester;
     @ManyToOne
     @JoinColumn(name = "lecture_theory_id")
     private User lectureTheoryId;
