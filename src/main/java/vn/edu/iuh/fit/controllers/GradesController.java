@@ -6,7 +6,10 @@ import vn.edu.iuh.fit.models.Course;
 import vn.edu.iuh.fit.models.Grades;
 import vn.edu.iuh.fit.models.User;
 import vn.edu.iuh.fit.repositories.*;
+import vn.edu.iuh.fit.responses.ResponesGrades;
 import vn.edu.iuh.fit.services.GradesService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/grades")
@@ -60,5 +63,10 @@ public class GradesController {
         scheduleRepository.updateStudentEnrollmentNumberByTypePractice(Long.parseLong(courseSectionId), Long.parseLong(lecturePracticeId));
         gradesRepository.save(grades);
         return "Success";
+    }
+
+    @GetMapping("/{student_id}")
+    public List<ResponesGrades> findGradesByStudentId(@PathVariable("student_id") long studentId){
+        return gradesService.findGradesByStudentId(studentId);
     }
 }

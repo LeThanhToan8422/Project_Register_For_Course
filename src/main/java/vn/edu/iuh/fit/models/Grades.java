@@ -23,13 +23,23 @@ public class Grades {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course courseId;
-    @Column(name = "theory_grades")
-    private double theoryGrades;
-    @Column(name = "practice_grades")
-    private double practiceGrades;
+    @Column(name = "midterm_grades")
+    private double midtermGrades;
+    @Column(name = "theory_grades_1")
+    private double theoryGrades1;
+    @Column(name = "theory_grades_2")
+    private double theoryGrades2;
+    @Column(name = "theory_grades_3")
+    private double theoryGrades3;
+    @Column(name = "practice_grades_1")
+    private double practiceGrades1;
+    @Column(name = "practice_grades_2")
+    private double practiceGrades2;
+    @Column(name = "practice_grades_3")
+    private double practiceGrades3;
     @Column(name = "final_grades")
     private double finalGrades;
-    private String evaluate;
+    private String result;
     private String semester;
     @ManyToOne
     @JoinColumn(name = "lecture_theory_id")

@@ -25,17 +25,14 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             "WHERE sch.course_section_id = :courseSectionId AND sch.`type` = 'LT'", nativeQuery = true)
     List<Object[]> findStudentEnrollmentNumbersByCourseSectionId(Long courseSectionId);
 
-    @Query(value = "SELECT COUNT(*) FROM schedules AS sch\n" +
-            "WHERE sch.course_section_id = :courseSectionId AND ((sch.lecture_id = :lectureTheoryId AND sch.`type` = 'LT') OR (sch.lecture_id = :lecturePracticeId AND sch.`type` = 'TH'))\n" +
-            "AND sch.day_of_week IN (\n" +
-            "\tSELECT sch.day_of_week FROM schedules AS sch INNER JOIN grades AS grd ON sch.course_section_id = grd.course_section_id\n" +
+    @Query(value = "SELECT COUNT(*) FROM schedules AS sch1\n" +
+            "WHERE sch1.course_section_id = :courseSectionId AND ((sch1.lecture_id = :lectureTheoryId AND sch1.`type` = 'LT') OR (sch1.lecture_id = :lecturePracticeId AND sch1.`type` = 'TH'))\n" +
+            "AND (\n" +
+            "\tSELECT sch2.id FROM schedules AS sch2 INNER JOIN grades AS grd ON sch2.course_section_id = grd.course_section_id\n" +
             "\tWHERE grd.semester = :semester AND grd.student_id = :studentId \n" +
-            "\tAND (grd.lecture_theory_id = sch.lecture_id OR grd.lecture_practice_id = sch.lecture_id)\n" +
-            ")\n" +
-            "AND sch.shift IN (\n" +
-            "\tSELECT sch.shift FROM schedules AS sch INNER JOIN grades AS grd ON sch.course_section_id = grd.course_section_id\n" +
-            "\tWHERE grd.semester = :semester AND grd.student_id = :studentId \n" +
-            "\tAND (grd.lecture_theory_id = sch.lecture_id OR grd.lecture_practice_id = sch.lecture_id)\n" +
+            "\tAND (grd.lecture_theory_id = sch2.lecture_id OR grd.lecture_practice_id = sch2.lecture_id)\n" +
+            "\tAND sch1.day_of_week = sch2.day_of_week AND sch1.shift = sch2.shift\n" +
+            "\tORDER BY sch2.day_of_week\n" +
             ")", nativeQuery = true)
     List<Object[]> findScheduleByStudentIdSemesterLectureTheoryAndLecturePractice(Long courseSectionId, Long lectureTheoryId, Long lecturePracticeId, String semester, Long studentId);
 }
