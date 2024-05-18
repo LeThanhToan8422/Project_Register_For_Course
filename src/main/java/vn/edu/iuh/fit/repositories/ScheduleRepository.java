@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.models.Curriculum;
 import vn.edu.iuh.fit.models.Grades;
 import vn.edu.iuh.fit.models.Schedule;
+import vn.edu.iuh.fit.responses.ResponesSchedule;
 
 import java.util.List;
 
@@ -35,4 +36,14 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             "\tORDER BY sch2.day_of_week\n" +
             ")", nativeQuery = true)
     List<Object[]> findScheduleByStudentIdSemesterLectureTheoryAndLecturePractice(Long courseSectionId, Long lectureTheoryId, Long lecturePracticeId, String semester, Long studentId);
+
+    @Query(value = "SELECT sch.id, co.name, sch.day_of_week, sch.shift, sch.buildings, sch.`type`, u.full_name, css.start_time, css.end_time FROM schedules AS sch \n" +
+            "INNER JOIN grades AS grd ON sch.course_section_id = grd.course_section_id\n" +
+            "INNER JOIN course_sections AS css ON sch.course_section_id = css.id\n" +
+            "INNER JOIN courses AS co ON css.course_id = co.id\n" +
+            "INNER JOIN users AS u ON u.id = sch.lecture_id\n" +
+            "WHERE grd.student_id = :studentId\n" +
+            "AND (grd.lecture_theory_id = sch.lecture_id OR grd.lecture_practice_id = sch.lecture_id)\n" +
+            "ORDER BY css.start_time, sch.day_of_week, sch.shift ASC", nativeQuery = true)
+    List<Object[]> findScheduleByStudentId(Long studentId);
 }

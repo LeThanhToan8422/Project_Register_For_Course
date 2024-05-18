@@ -25,7 +25,6 @@ public interface CourseSectionRepository extends JpaRepository<CourseSection, Lo
             "       sch.student_enrollment_number\n" +
             "FROM schedules AS sch \n" +
             "INNER JOIN course_sections AS coss ON sch.course_section_id = coss.id\n" +
-            "INNER JOIN lecture_course_sections AS lcs ON coss.id = lcs.course_section_id\n" +
             "INNER JOIN users AS u ON u.id = sch.lecture_id\n" +
             "WHERE coss.id = :courseSectionId\n" +
             "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings\n", nativeQuery = true)

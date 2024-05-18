@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vn.edu.iuh.fit.enums.DayOfWeek;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "schedules")
 @NoArgsConstructor

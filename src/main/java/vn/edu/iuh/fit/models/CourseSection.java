@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -24,11 +26,11 @@ public class CourseSection {
     @Column(name = "class_name")
     private String className;
     private String semester;
+    private LocalDate startTime;
+    private LocalDate endTime;
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course courseId;
-    @OneToMany(mappedBy = "courseSectionId")
-    private List<Lecture_Course_Section> lectureCourseSections;
     @OneToMany(mappedBy = "courseSectionId")
     private List<Grades> grades;
     @OneToMany(mappedBy = "courseSectionId")

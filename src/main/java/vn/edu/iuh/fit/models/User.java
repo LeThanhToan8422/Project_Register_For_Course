@@ -40,9 +40,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "major_id")
     private Major majorId;
-    @OneToMany(mappedBy = "lectureId")
-    @JsonIgnore
-    private List<Lecture_Course_Section> lectureCourseSections;
     @OneToMany(mappedBy = "studentId")
     @JsonIgnore
     private List<Grades> grades;
