@@ -18,7 +18,7 @@ public class ScheduleService {
     public List<ResponesSchedule> findScheduleByStudentId(Long studentId){
         List<ResponesSchedule> responesSchedules = new ArrayList<>();
         for (Object[] o : scheduleRepository.findScheduleByStudentId(studentId)){
-            ResponesSchedule responesSchedule = new ResponesSchedule(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"", o[8]+"");
+            ResponesSchedule responesSchedule = new ResponesSchedule(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"", o[8]+"", o[9]+"", o[10]+"");
             responesSchedules.add(responesSchedule);
         }
         return responesSchedules;

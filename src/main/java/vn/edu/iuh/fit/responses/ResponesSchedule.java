@@ -23,4 +23,6 @@ public class ResponesSchedule {
     private String fullName;
     private String startTime;
     private String endTime;
+    private String midTermExamDate;
+    private String finalTermExamDate;
 }

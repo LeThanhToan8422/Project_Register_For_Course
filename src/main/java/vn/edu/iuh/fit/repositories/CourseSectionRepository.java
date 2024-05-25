@@ -32,7 +32,7 @@ public interface CourseSectionRepository extends JpaRepository<CourseSection, Lo
             "GROUP BY coss.id, sch.day_of_week, sch.shift, sch.buildings", nativeQuery = true)
     List<Object[]> findDetailCourseSectionsByCourseSectionId(Long courseSectionId);
 
-    @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, co.credits, lecture_theory.full_name AS lecture_theory, lecture_practice.full_name AS lecture_practice, coss.`status` FROM course_sections AS coss \n" +
+    @Query(value = "SELECT coss.id, coss.section_code, co.name, coss.class_name, co.credits, lecture_theory.full_name AS lecture_theory, lecture_practice.full_name AS lecture_practice, coss.`status`, coss.start_time, coss.end_time FROM course_sections AS coss \n" +
             "INNER JOIN courses AS co ON co.id = coss.course_id\n" +
             "INNER JOIN grades AS grd ON coss.id = grd.course_section_id\n" +
             "INNER JOIN users AS lecture_theory ON lecture_theory.id = grd.lecture_theory_id\n" +

@@ -16,4 +16,6 @@ public class ResponesCourseSectionsRegistered {
     private String lecture_theory;
     private String lecture_practice;
     private String status;
+    private String startTime;
+    private String endTime;
 }

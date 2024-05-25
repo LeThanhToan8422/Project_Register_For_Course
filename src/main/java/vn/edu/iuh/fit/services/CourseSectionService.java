@@ -38,7 +38,7 @@ public class CourseSectionService {
     public List<ResponesCourseSectionsRegistered> findCourseSectionsRegisteredByStudentIdAndSemester(Long studentId, String semester){
         List<ResponesCourseSectionsRegistered> responesCourseSectionsRegistereds = new ArrayList<>();
         for (Object[] o : courseSectionRepository.findCourseSectionsRegisteredByStudentIdAndSemester(studentId, semester)){
-            ResponesCourseSectionsRegistered responesCourseSectionsRegistered = new ResponesCourseSectionsRegistered(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"");
+            ResponesCourseSectionsRegistered responesCourseSectionsRegistered = new ResponesCourseSectionsRegistered(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"", o[8]+"", o[9]+"");
             responesCourseSectionsRegistereds.add(responesCourseSectionsRegistered);
         }
         return responesCourseSectionsRegistereds;

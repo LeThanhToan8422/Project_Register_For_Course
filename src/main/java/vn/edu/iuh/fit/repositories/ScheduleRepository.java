@@ -37,7 +37,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             ")", nativeQuery = true)
     List<Object[]> findScheduleByStudentIdSemesterLectureTheoryAndLecturePractice(Long courseSectionId, Long lectureTheoryId, Long lecturePracticeId, String semester, Long studentId);
 
-    @Query(value = "SELECT sch.id, co.name, sch.day_of_week, sch.shift, sch.buildings, sch.`type`, u.full_name, css.start_time, css.end_time FROM schedules AS sch \n" +
+    @Query(value = "SELECT sch.id, co.name, sch.day_of_week, sch.shift, sch.buildings, sch.`type`, u.full_name, css.start_time, css.end_time, css.mid_term_exam_date, css.final_term_exam_date FROM schedules AS sch \n" +
             "INNER JOIN grades AS grd ON sch.course_section_id = grd.course_section_id\n" +
             "INNER JOIN course_sections AS css ON sch.course_section_id = css.id\n" +
             "INNER JOIN courses AS co ON css.course_id = co.id\n" +

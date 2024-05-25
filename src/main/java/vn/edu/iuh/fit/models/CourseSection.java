@@ -28,6 +28,8 @@ public class CourseSection {
     private String semester;
     private LocalDate startTime;
     private LocalDate endTime;
+    private LocalDate midTermExamDate;
+    private LocalDate finalTermExamDate;
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course courseId;
