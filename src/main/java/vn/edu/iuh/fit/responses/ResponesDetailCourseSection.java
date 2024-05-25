@@ -16,4 +16,6 @@ public class ResponesDetailCourseSection {
     private String lectures;
     private String type;
     private String studentEnrollmentNumbers;
+    private String startTime;
+    private String endTime;
 }

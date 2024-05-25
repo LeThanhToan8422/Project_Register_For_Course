@@ -29,7 +29,7 @@ public class CourseSectionService {
     public List<ResponesDetailCourseSection> findDetailCourseSectionsByCourseSectionId(Long courseSectionId){
         List<ResponesDetailCourseSection> responesDetailCourseSections = new ArrayList<>();
         for (Object[] o : courseSectionRepository.findDetailCourseSectionsByCourseSectionId(courseSectionId)){
-            ResponesDetailCourseSection responesDetailCourseSection = new ResponesDetailCourseSection(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"");
+            ResponesDetailCourseSection responesDetailCourseSection = new ResponesDetailCourseSection(o[0]+"", o[1]+"", o[2]+"", o[3]+"", o[4]+"", o[5]+"", o[6]+"", o[7]+"", o[8]+"", o[9]+"");
             responesDetailCourseSections.add(responesDetailCourseSection);
         }
         return responesDetailCourseSections;
